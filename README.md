@@ -1,5 +1,7 @@
 # PDF Document Processing and Question Answering System
 
+Loosely inspired by the Langchain QA bot and PDF ingestion system - https://python.langchain.com/v0.2/docs/tutorials/pdf_qa/
+
 This system uses Apache Flink's Python Table API to process PDF documents, extract text, generate embeddings, and provide a question-answering interface using a large language model.
 
 ## Features
