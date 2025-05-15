@@ -146,51 +146,9 @@ Command-line options:
 
 ## Cluster Deployment
 
-When deploying to a Flink cluster, consider the following:
+TODO
 
-### Model Distribution
-- The sentence-transformers model and Llama model are loaded as global variables
-- Each TaskManager will load its own copy of the models
-- Consider using Flink's distributed cache to share model files:
-  ```python
-  env.add_python_file("path/to/model/files")
-  ```
 
-### Resource Requirements
-- Each TaskManager needs sufficient memory for model loading
-- Recommended minimum:
-  - 4GB RAM per TaskManager for sentence-transformers
-  - 8GB RAM per TaskManager for Llama model
-  - Adjust based on batch size and parallelism
-
-### Configuration
-Add these settings to your `flink-conf.yaml`:
-```yaml
-python.fn-execution.memory.managed: true
-python.fn-execution.memory.size: 1024mb
-taskmanager.memory.process.size: 4096mb
-```
-
-### Best Practices
-1. **Model Loading**
-   - Use lazy loading in UDFs to avoid loading models on unused TaskManagers
-   - Consider using model quantization for smaller memory footprint
-   - Implement proper state management for distributed processing
-
-2. **Resource Management**
-   - Monitor memory usage across TaskManagers
-   - Adjust parallelism based on available resources
-   - Use appropriate batch sizes to balance throughput and memory usage
-
-3. **Error Handling**
-   - Implement retry logic for model loading failures
-   - Add health checks for model availability
-   - Monitor model inference performance
-
-4. **State Management**
-   - Use Flink's state management for distributed caching needs
-   - Consider using RocksDB state backend for large state
-   - Implement proper state cleanup and TTL policies
 
 ## Contributing
 
