@@ -16,6 +16,11 @@ class VectorStore:
     def add_documents(self, documents: List[Dict[str, any]]):
         """Add documents and their embeddings to the vector store."""
         for doc in documents:
+            # Skip documents with empty or invalid embeddings
+            if not doc['embedding'] or len(doc['embedding']) != self.dimension:
+                print(f"Skipping document {doc['filename']} due to invalid embedding")
+                continue
+                
             embedding = np.array(doc['embedding'], dtype=np.float32).reshape(1, -1)
             chunk_idx = len(self.documents)  # Current chunk index
             self.index.add(embedding)
